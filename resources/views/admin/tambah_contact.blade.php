@@ -1,7 +1,7 @@
 @extends('layouts.template_user')
 
 
-@section('judulcontent2', 'dashboard / contact')
+@section('judulcontent2', 'dashboard / mail')
 
 @section('content')
                         
@@ -11,12 +11,12 @@
                           
 
                              <div class="card-body">
-                                 <a href="{{route('ajukan_contact')}}" class="btn btn-primary mb-3">Follow Up List</a>
+                                 <a href="{{route('ajukan_contact')}}" class="btn btn-primary mb-3">Add New Contact</a>
                                   
                                     
                                 <div class="table-responsive">
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
+                                        <thead>
                                             <tr>
                                                 <th>No</th>
                                                 <th>Tanggal</th>
@@ -24,6 +24,7 @@
                                                 <th>Phone</th>
                                                 <th>Email</th>
                                                 <th>Status</th>
+                                                <th>Keterangan</th>
                                                 <th>Aksi</th>
                                                
                                             </tr>
@@ -40,9 +41,10 @@
                                                     <td>{{$c->phone}} </td>
                                                     <td>{{$c->email}} </td>
                                                     <td>{{$c->status}} </td>
+                                                    <td>{{$c->keterangan}}- </td>
                                                     <td> 
-                                                                                            <a href="/home/costumer/edit/{{$c->id}}" >edit</a> |
-                                                        <a href="/home/costumer/hapus/{{$c->id}}">hapus</a> 
+                                                    <a href="/home/surat/edit/{{$m->nomor_surat}}" >edit</a> |
+                                                        <a href="/home/surat/hapus/{{$m->nomor_surat}}">hapus</a> 
                                                     </td>
                                                 </tr>
                                             @endforeach

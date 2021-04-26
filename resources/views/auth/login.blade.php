@@ -6,7 +6,7 @@
         <div class="col-md-8">
             <div class="card">
                <div class="logo">
-                    <img src="{{url('asset/img/login.png')}}" width="40%" style="margin-bottom: -10%;margin-top:-40px;transform: translate(90%);">
+                   
                </div>
 
                 <div class="card-body">

@@ -15,27 +15,27 @@ class admin_controller extends Controller
 
     public function dashboard()
     {
-        $mails = DB::table('mails')->where('status', 'proses')->orderByDesc('created_at')->paginate(10);
-        return view('admin.dashboard')->with('mails', $mails);
+        $costumers = DB::table('costumers')->orderByDesc('created_at')->paginate(10);
+        return view('admin.dashboard')->with('costumers', $costumers);
     }
 
-    public function dashboard_detail($nomor_surat)
+    public function dashboard_detail($id)
     {
-        $mails = DB::table('mails')->where('nomor_surat', $nomor_surat)->get();
-        return view('admin.dashboard_detail')->with('mails', $mails);
+        $costumers = DB::table('costumers')->where('id', $id)->get();
+        return view('admin.dashboard_detail')->with('costumers', $costumers);
     }
 
-    public function dashboard_detail_status($nomor_surat)
+    public function dashboard_detail_status($id)
     {
         $status = DB::table('status')->get();
-        $mails = DB::table('mails')->where('nomor_surat', $nomor_surat)->get();
-        return view('admin.dashboard_detail_status')->with('mails', $mails)->with('status', $status);
+        $costumers = DB::table('costumers')->where('id', $id)->get();
+        return view('admin.dashboard_detail_status')->with('costumers', $costumers)->with('status', $status);
     }
 
     public function dashboard_detail_status_store(Request $request)
     {
         //dd($request);
-        DB::table('mails')->where('nomor_surat', $request->nomor_surat)->update([
+        DB::table('costumers')->where('id', $request->id)->update([
 
             'status' => $request->status,
             'keterangan' => $request->keterangan,
@@ -43,28 +43,47 @@ class admin_controller extends Controller
         return Redirect::back();
     }
 
-    public function mail_hapus($nomor_surat)
+    public function costumer_hapus($id)
     {
-        $mails = DB::table('mails')->where('nomor_surat', $nomor_surat)->delete();
+        $costumers = DB::table('costumers')->where('id', $id)->delete();
         return redirect::back();
     }
 
-    public function mail_disetujui()
+    public function costumer_disetujui()
     {
-        $mails = DB::table('mails')->where('status', 'disetujui')->paginate(10);
-        return view('admin.mail_disetujui')->with('mails', $mails);
+        $costumers = DB::table('costumers')->where('status', 'qualified')->paginate(10);
+        return view('admin.costumer_disetujui')->with('costumers', $costumers);
     }
 
-    public function mail_ditolak()
+    public function costumer_ditolak()
     {
-        $mails = DB::table('mails')->where('status', 'ditolak')->paginate(10);
-        return view('admin.mail_ditolak')->with('mails', $mails);
+        $costumers = DB::table('costumers')->where('status', 'pending')->paginate(10);
+        return view('admin.costumer_ditolak')->with('costumers', $costumers);
+    }
+
+    public function costumer_uncontacted()
+    {
+        $costumers = DB::table('costumers')->where('status', 'uncontacted')->paginate(10);
+        return view('admin.costumer_uncontacted')->with('costumers', $costumers);
+    }
+
+    public function costumer_lost()
+    {
+        $costumers = DB::table('costumers')->where('status', 'lost')->paginate(10);
+        return view('admin.costumer_lost')->with('costumers', $costumers);
     }
 
     public function data_karyawan()
     {
         $data_karyawan = DB::table('data_karyawan')->paginate(10);
         return view('admin.data_karyawan')->with('data_karyawan', $data_karyawan);
+    }
+
+   
+    public function status_contact(Request $request, Status $status)
+    {
+        $status_contact = DB::table('status')->all()->paginate(10);
+        return view('admin.data_status')->with('status_contact', $status_contact);
     }
 
     public function data_karyawan_tambahdata()
@@ -121,5 +140,67 @@ class admin_controller extends Controller
     {
         $data_jurnalis = DB::table('users')->where('id', $id)->delete();
         return redirect('/admin/data/jurnalis');
+    }
+    //Add New Contact
+    public function ajukan_contact()
+    {
+        $data_karyawan = DB::table('data_karyawan')->get();
+        return view('admin.ajukan_contact')->with('data_karyawan', $data_karyawan);
+
+        $statuz = \DB::table('status')
+        ->select('status.status')
+        ->get();
+
+        // $nameListEmployees = \DB::table('employees')
+        // ->select('employees.nama_employee')
+        // ->get();
+        return view('admin.ajukan_contact')->compact('status', $statuz);
+    
+        // return view('admin.incidents.create', compact('nameList', $nameList, 'nameListEmployees', $nameListEmployees));
+    }
+
+    public function ajukan_contact_store(Request $request)
+    {
+        //dd($request);
+        DB::table('costumers')->updateOrInsert([
+            'name' => $request->name,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'ditujukan_kepada' => $request->ditujukan_kepada,
+            'status' => ('Pending'),
+        ]);
+        return Redirect('/home');
+    }
+
+    public function contact_edit($id)
+    {
+        $data_karyawan = DB::table('data_karyawan')->get();
+        $costumers = DB::table('costumers')->where('id', $id)->get();
+        return view('admin.costumer_edit')->with('costumers', $costumers)->with('data_karyawan', $data_karyawan);
+    }
+
+    public function contact_edit_store(Request $request)
+    {
+        //dd($request);
+        DB::table('costumers')->updateOrInsert([
+            'name' => $request->name,
+            'phone' => $request->phone,
+            'email' => $request->email,
+            'ditujukan_kepada' => $request->ditujukan_kepada,
+            'status' => ('Pending'),
+        ]);
+        return Redirect('/home');
+    }
+
+    public function contact_hapus($id)
+    {
+        $costumers = DB::table('costumers')->where('id', $id)->delete();
+        return Redirect('/home');
+    }
+
+    public function agent()
+    {
+        $agent = DB::table('data_karyawan')->paginate(10);
+        return view('admin.agent')->with('agent', $agent);
     }
 }

@@ -1,24 +1,16 @@
-@extends('layouts.template_user')
+@extends('layouts.template_admin')
 
 
-@section('judulcontent2', 'dashboard / contact')
+@section('judulcontent2', 'contact lost')
 
 @section('content')
                         
-                               
-  <div class="row">
-
-                          
-
                              <div class="card-body">
-                                 <a href="{{route('ajukan_contact')}}" class="btn btn-primary mb-3">Follow Up List</a>
-                                  
-                                    
                                 <div class="table-responsive">
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
+                                        <thead>
                                             <tr>
-                                                <th>No</th>
+                                            <th>No</th>
                                                 <th>Tanggal</th>
                                                 <th>Name</th>
                                                 <th>Phone</th>
@@ -30,7 +22,7 @@
                                         </thead>
                                       
                                         <tbody>
-                                             <?php $no = 0;?>
+                                        <?php $no = 0;?>
                                             @foreach ($costumers as $c)    
                                                 <tr>
                                                     <?php $no++ ;?>
@@ -41,8 +33,8 @@
                                                     <td>{{$c->email}} </td>
                                                     <td>{{$c->status}} </td>
                                                     <td> 
-                                                                                            <a href="/home/costumer/edit/{{$c->id}}" >edit</a> |
-                                                        <a href="/home/costumer/hapus/{{$c->id}}">hapus</a> 
+                                                    <a href="/admin/dashboard/detail/{{$c->id}}" >detail</a> |
+                                                        <a href="/admin/dashboard/costumer/hapus/{{$c->id}}">hapus</a> 
                                                     </td>
                                                 </tr>
                                             @endforeach
@@ -51,6 +43,10 @@
                                                     {{ $costumers->links() }} <!-- ini pagination -->
                                 </div>
 
+                 
+                            
+                            
                                 
                             </div>
+ 
 @endsection

@@ -1,50 +1,43 @@
 @extends('layouts.template_admin')
 
 
-@section('judulcontent2', 'surat disetujui')
+@section('judulcontent2', 'data karyawan')
 
 @section('content')
                         
-                             <div class="card-body">
+                                <a href="{{route('data_karyawan_tambahdata')}}" class="btn btn-primary  mb-3 ">Tambah Data</a> 
+                                
                                 <div class="table-responsive">
                                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Tanggal</th>
-                                                <th>Judul Surat</th>
-                                                <th>Pengirim</th>
                                                 <th>Status</th>
-                                                <th>Aksi</th>
                                                
                                             </tr>
                                         </thead>
                                       
                                         <tbody>
                                              <?php $no = 0;?>
-                                            @foreach ($mails as $m)    
+                                            @foreach ($status as $s)    
                                                 <tr>
                                                     <?php $no++ ;?>
                                                     <td>{{ $no }}</td>
-                                                    <td>{{$m->created_at}} </td>
-                                                    <td>{{$m->judul_surat}} t</td>
-                                                    <td>{{$m->surat_dari}} </td>
-                                                    <td>{{$m->status}} </td>
+                                                    <td>{{$s->nama_karyawan}} </td>
+                                                    <td>{{$s->jabatan}}</td>
+                                                    <td>{{$s->status}} </td>
+                                                    <td>{{$s->no_hp}} </td>
+                                                    <td>{{$s->alamat}} </td>
                                                     <td> 
-                                                    <a href="/admin/dashboard/detail/{{$m->nomor_surat}}" >detail</a> |
-                                                        <a href="/admin/dashboard/mail/hapus/{{$m->nomor_surat}}">hapus</a> 
+                                                    <a href="/admin/data/status/editdata/{{$s->id_status}}">edit</a> 
+                                                    <a href="/admin/data/status/hapus/{{$s->id_status}}">hapus</a> 
                                                     </td>
                                                 </tr>
                                             @endforeach
                                         </tbody>
                                     </table>
-                                                    {{ $mails->links() }} <!-- ini pagination -->
-                                </div>
-
+                                                    {{ $data_karyawan->links() }} <!-- ini pagination -->
+                        
                            
-                            
-                            
-                                
-                            </div>
  
 @endsection

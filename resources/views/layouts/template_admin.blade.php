@@ -14,7 +14,7 @@
     <body class="sb-nav-fixed">
         <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
            <!-- <a class="navbar-brand" href="index.html">Simp Aceh</a> -->
-           <img src="{{url('asset/img/pancacita20.png')}}" style="width:15%; margin-right:9px; padding-top:20px;">
+           <!-- <img src="{{url('asset/img/pancacita20.png')}}" style="width:15%; margin-right:9px; padding-top:20px;"> -->
             <button class="btn btn-link btn-sm order-1 order-lg-0" id="sidebarToggle" href="#"><i class="fas fa-bars"></i></button>
             <!-- Navbar Search-->
             <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
@@ -40,25 +40,38 @@
                                 <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
                                 Dashboard
                             </a>
-                        
-                           
-                            <a class="nav-link" href="{{route('mail_disetujui')}}">
+                            <a class="nav-link" href="{{route('ajukan_contact')}}">
                                 <div class="sb-nav-link-icon"><i class="far fa-envelope-open"></i></div> 
-                                Surat Disetujui
+                                Add New Contact
                             </a>
-                            <a class="nav-link" href="{{route('mail_ditolak')}}">
+                           
+                            <a class="nav-link" href="{{route('costumer_disetujui')}}">
+                                <div class="sb-nav-link-icon"><i class="far fa-envelope-open"></i></div> 
+                                Costumer Qualified
+                            </a>
+                            <a class="nav-link" href="{{route('costumer_ditolak')}}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-calendar-times"></i></div> 
-                                Surat Ditolak
-                            </a>
-                            <a class="nav-link" href="{{route('data_karyawan')}}">
-                                <div class="sb-nav-link-icon"><i class="fas fa-user-shield"></i></div>
-                                Data Karyawan
+                                Costumer Pending
                             </a>
 
-                            <a class="nav-link" href="{{route('data_jurnalis_media')}}">
+                            <a class="nav-link" href="{{route('costumer_uncontacted')}}">
+                                <div class="sb-nav-link-icon"><i class="far fa-envelope-open"></i></div> 
+                                Costumer Uncontacted
+                            </a>
+                            <a class="nav-link" href="{{route('costumer_lost')}}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-calendar-times"></i></div> 
+                                Costumer Lost
+                            </a>
+
+                            <a class="nav-link" href="{{route('agent')}}">
+                                <div class="sb-nav-link-icon"><i class="fas fa-user-shield"></i></div>
+                                Data Agent
+                            </a>
+
+                            <!-- <a class="nav-link" href="{{route('data_jurnalis_media')}}">
                                 <div class="sb-nav-link-icon"><i class="fas fa-database"></i></div>
                                 Data Jurnalis Media
-                            </a>
+                            </a> -->
                             <a class="nav-link" href="/logout">
                                 <div class="sb-nav-link-icon"><i class="fas fa-sign-out-alt"></i></div>
                                 Logout 
@@ -85,7 +98,7 @@
                 <footer class="py-4 bg-light mt-auto">
                     <div class="container-fluid">
                         <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Nurul Aliyah 2020</div>
+                            <div class="text-muted">Copyright &copy; Fachri Siddiq Akbar 2020</div>
                             <div>
                                 <a href="#">Privacy Policy</a>
                                 &middot;

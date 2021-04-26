@@ -1,18 +1,28 @@
 @extends('layouts.template_user')
-@section('judulcontent2', 'Tulis Surat')
+@section('judulcontent2', 'Add New Contact')
 @section('content')
 
 
-<form action="{{route('ajukan_surat_store')}}" method="post">
-
+<form action="{{route('ajukan_contact_store')}}" method="post">
+    
     {{ csrf_field() }}
 
 <div class="form-group">
-    <label>Judul Surat</label>
-    <input type="text" class="form-control"  name="judul_surat">
+    <label>Name</label>
+    <input type="text" class="form-control"  name="name">
 </div>
 
-<label>Kepada</label>
+<div class="form-group">
+    <label>Phone</label>
+    <input type="text" class="form-control"  name="phone">
+</div>
+
+<div class="form-group">
+    <label>Email</label>
+    <input type="text" class="form-control"  name="email">
+</div>
+
+<label>Assign To</label>
 <select class="form-control" name="ditujukan_kepada">
   <option>Pilih</option>
  @foreach ($data_karyawan as $dk)
@@ -23,9 +33,9 @@
 </select>
 <br/>
 
-<div class="form-group">
+<!-- <div class="form-group">
     <textarea class="form-control" rows="15" name="isi_surat"></textarea>
-</div>
+</div> -->
 
 
 

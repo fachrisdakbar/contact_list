@@ -16,53 +16,52 @@ class user_controller extends Controller
 
     public function dashboard()
     {
-        $mails = DB::table('mails')->where('surat_dari', (Auth::user()->name))->paginate(10);
-        return view('user.dashboard')->with('mails', $mails);
+        $costumers = DB::table('costumers')->where('ditujukan_kepada', (Auth::user()->name))->paginate(10);
+        return view('user.dashboard')->with('costumers', $costumers);
     }
 
-    public function ajukan_surat()
+    public function ajukan_contact()
     {
         $data_karyawan = DB::table('data_karyawan')->get();
-        return view('user.ajukan_surat')->with('data_karyawan', $data_karyawan);
+        return view('user.ajukan_contact')->with('data_karyawan', $data_karyawan);
     }
 
-    public function ajukan_surat_store(Request $request)
+    public function ajukan_contact_store(Request $request)
     {
         //dd($request);
-        DB::table('mails')->updateOrInsert([
-            'judul_surat' => $request->judul_surat,
+        DB::table('costumers')->updateOrInsert([
+            'name' => $request->name,
+            'phone' => $request->phone,
+            'email' => $request->email,
             'ditujukan_kepada' => $request->ditujukan_kepada,
-            'surat_dari' => (Auth::user()->name),
-            'isi_surat' => $request->isi_surat,
             'status' => ('proses'),
         ]);
         return Redirect('/home');
     }
 
-    public function surat_edit($nomor_surat)
+    public function contact_edit($id)
     {
         $data_karyawan = DB::table('data_karyawan')->get();
-        $mails = DB::table('mails')->where('nomor_surat', $nomor_surat)->get();
-        return view('user.surat_edit')->with('mails', $mails)->with('data_karyawan', $data_karyawan);
+        $costumers = DB::table('costumers')->where('id', $id)->get();
+        return view('user.contact_edit')->with('costumers', $costumers)->with('data_karyawan', $data_karyawan);
     }
 
-    public function surat_edit_store(Request $request)
+    public function contact_edit_store(Request $request)
     {
         //dd($request);
-        DB::table('mails')->where('nomor_surat', $request->nomor_surat)->update([
-            'nomor_surat' => $request->nomor_surat,
-            'judul_surat' => $request->judul_surat,
+        DB::table('costumers')->where('id', $request->id)->update([
+            'name' => $request->name,
+            'phone' => $request->phone,
+            'email' => $request->email,
             'ditujukan_kepada' => $request->ditujukan_kepada,
-            'surat_dari' => (Auth::user()->name),
-            'isi_surat' => $request->isi_surat,
             'status' => ('proses'),
         ]);
         return Redirect('/home');
     }
 
-    public function surat_hapus($nomor_surat)
+    public function contact_hapus($id)
     {
-        $mails = DB::table('mails')->where('nomor_surat', $nomor_surat)->delete();
+        $costumers = DB::table('costumers')->where('id', $id)->delete();
         return Redirect('/home');
     }
 
