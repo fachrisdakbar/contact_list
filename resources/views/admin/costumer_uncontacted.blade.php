@@ -1,7 +1,7 @@
 @extends('layouts.template_admin')
 
 
-@section('judulcontent2', 'contact disetujui')
+@section('judulcontent2', 'contact uncontacted')
 
 @section('content')
                         
